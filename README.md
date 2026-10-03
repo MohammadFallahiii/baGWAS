@@ -166,7 +166,7 @@ A path ending in `.bed`, `.bim`, or `.fam` is normalized to the dataset prefix.
 
 ```text
 FID   IID   Sex   Breed   <Trait>
-```
+
 FID — group/family identifier assigned to each breed. Individuals belonging to the same breed must have the same FID.
 IID — individual identifier.
 Sex — sex of the individual.
@@ -174,6 +174,7 @@ Breed — breed or population name.
 <Trait> — phenotype trait to be analyzed. The trait column must be numeric.
 
 group_col — specifies the column used to define the breed/group structure. By default, group_col = "FID".
+```
 
 Example:
 
@@ -189,11 +190,6 @@ pheno <- data.frame(
 
 
 ### Covariates
-
-For `genoGWAS`, numeric covariates are aligned to the PLINK `.fam` individual order by `FID` and `IID`. Missing numeric covariates are median-imputed and zero-variance covariates are removed.
-
-For `freqGWAS`, numeric covariates are aggregated at the group level before entering the fixed-effect design matrix.
-
 `Covariates` must be a data frame containing:
 
 ```text

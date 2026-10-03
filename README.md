@@ -167,11 +167,11 @@ A path ending in `.bed`, `.bim`, or `.fam` is normalized to the dataset prefix.
 ```text
 FID   IID   Sex   Breed   <Trait>
 
-FID — group/family identifier assigned to each breed. Individuals belonging to the same breed must have the same FID.
-IID — individual identifier.
-Sex — sex of the individual.
-Breed — breed or population name.
-<Trait> — phenotype trait to be analyzed. The trait column must be numeric.
+FID: group/family identifier assigned to each breed. Individuals belonging to the same breed must have the same FID.
+IID: individual identifier.
+Sex: sex of the individual.
+Breed: breed or population name.
+<Trait>: phenotype trait to be analyzed. The trait column must be numeric.
 
 group_col — specifies the column used to define the breed/group structure. By default, group_col = "FID".
 ```
@@ -195,11 +195,11 @@ pheno <- data.frame(
 ```text
 FID   IID   Sex   Breed   <Covariate>
 
-FID — group/family identifier assigned to each breed. Individuals belonging to the same breed must have the same FID.
-IID — individual identifier.
-Sex — sex of the individual.
-Breed — breed or population name.
-<Covariate> — numeric covariate variable included as a fixed effect in the GWAS model. Multiple covariates can be provided as additional columns.
+FID: group/family identifier assigned to each breed. Individuals belonging to the same breed must have the same FID.
+IID: individual identifier.
+Sex: sex of the individual.
+Breed: breed or population name.
+<Covariate>: numeric covariate variable included as a fixed effect in the GWAS model. Multiple covariates can be provided as additional columns.
 ```
 
 ## Supported organisms

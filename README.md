@@ -1,6 +1,6 @@
 # baGWAS
 
-**baGWAS** is an R package for genome-wide association analysis in animal populations using two complementary workflows:
+**baGWAS** is an R package for genome-wide association analysis that integrates non-matched genotype and phenotypic data at the inter-breed level through two complementary workflows:
 
 - **`genoGWAS`** — genotype-based GWAS using PLINK-prepared binary genotype data and GEMMA linear mixed models.
 - **`freqGWAS`** — frequency-based GWAS using group-level allele-frequency matrices, an IBS-derived group relationship matrix, and EMMREML.
@@ -12,7 +12,7 @@ The package provides a single main entry point, `baGWAS()`, and returns a standa
 ## Main function
 
 ```r
-GWAS.res <- baGWAS(
+baGWAS.res <- baGWAS(
   strategy = "",
   organism = "",
   pheno = pheno,

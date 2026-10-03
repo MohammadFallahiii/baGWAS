@@ -1,0 +1,32 @@
+Package: baGWAS
+Type: Package
+Title: Genome-Wide Association Analysis with Genotype- and Frequency-Based
+    Strategies
+Version: 1.0.5
+Authors@R: c(
+    person("Mohammad", "Fallahi", email = "mohammad.fallahi@modares.ac.ir",
+           role = c("aut", "cre")),
+    person("Dani", "Fayazi-Kia", role = "aut")
+    )
+Description: Provides a reproducible workflow for genome-wide association
+    analysis using two strategies: genotype-based GWAS (genoGWAS) with
+    GEMMA linear mixed models and frequency-based GWAS (freqGWAS) using
+    allele-frequency matrices, group-level relationships, and EMMREML.
+    The package prepares input files, runs PLINK and GEMMA, performs scans,
+    creates Manhattan and Q-Q plots, writes run logs, and returns a
+    standardized result data frame.
+License: MIT + file LICENSE
+Encoding: UTF-8
+OS_type: unix
+Imports:
+    data.table,
+    EMMREML,
+    ggplot2,
+    ggmanh,
+    parallel,
+    stats,
+    utils
+Suggests:
+    testthat (>= 3.0.0)
+SystemRequirements: PLINK 1.9/2.0 and GEMMA (external executables)
+Config/testthat/edition: 3

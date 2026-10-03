@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+message: "If you use baGWAS in a publication, please cite the software and the underlying methods."
+title: "baGWAS: Genome-Wide Association Analysis with Genotype- and Frequency-Based Strategies"
+version: "1.0.5"
+date-released: "2026-10-03"
+type: software
+license: MIT
+authors:
+  - family-names: Fallahi
+    given-names: Mohammad
+    email: "mohammad.fallahi@modares.ac.ir"
+    roles:
+      - author
+      - maintainer
+  - family-names: Fayazi-Kia
+    given-names: Dani
+    roles:
+      - author
+keywords:
+  - GWAS
+  - genome-wide association study
+  - animal genetics
+  - livestock genomics
+  - population genetics
+  - mixed models
+  - PLINK
+  - GEMMA
+  - EMMREML

@@ -2,8 +2,8 @@
 
 **baGWAS** is an R package for genome-wide association analysis that integrates non-matched genotype and phenotypic data at the inter-breed level through two complementary workflows:
 
-- **`genoGWAS`** — genotype-based GWAS using PLINK-prepared binary genotype data and GEMMA linear mixed models.
-- **`freqGWAS`** — frequency-based GWAS using group-level allele-frequency matrices, an IBS-derived group relationship matrix, and EMMREML.
+- **`genoGWAS`** — breed-level genotype data analysis using GEMMA linear mixed models..
+- **`freqGWAS`** — breed-level allele frequency analysis using group-level allele-frequency matrices, an IBS-derived breed relationship matrix, and EMMREML.
 
 The package provides a single main entry point, `baGWAS()`, and returns a standardized GWAS result table together with reproducible output files, diagnostic plots, and a run log.
 
@@ -12,7 +12,7 @@ The package provides a single main entry point, `baGWAS()`, and returns a standa
 ## Main function
 
 ```r
-baGWAS.res <- baGWAS(
+baGWAS.Res <- baGWAS(
   strategy = "",
   organism = "",
   pheno = pheno,
@@ -80,11 +80,11 @@ R CMD INSTALL .
 
 baGWAS calls external command-line programs. These programs are not bundled with the R package and must be installed separately.
 
-### PLINK
+### 1. PLINK
 
 The genotype-based workflow can use an executable detected as `plink2`, `plink1.9`, or `plink`. The frequency-based workflow prefers a working PLINK 1.x executable because it uses the PLINK 1.x commands `--freq --within` and `--cluster --matrix`.
 
-### GEMMA
+### 2. GEMMA
 
 `genoGWAS` uses GEMMA to calculate a relationship matrix and perform the linear mixed-model association scan.
 
@@ -107,33 +107,33 @@ Sys.setenv(BA_GWAS_GEMMA  = "/path/to/gemma")
 
 ## Quick start
 
-### 1. genotype-based GWAS (`genoGWAS`)
+### 1. genoGWAS (`breed-level genotype data-based GWAS`)
 
 ```r
 library(baGWAS)
 
-GWAS.res <- baGWAS(
+baGWAS.Res <- baGWAS(
   strategy = "genoGWAS",
   organism = "dog",
   pheno = pheno,
   covariate = covariate,
   trait = "weight",
-  geno = "/data/sheep/genotypes"
+  geno = "/data/geno"
 )
 ```
 
-### 2. frequency-based GWAS (`freqGWAS`)
+### 2. freqGWAS (`breed-level allele frequency-based GWAS`)
 
 For `freqGWAS`, `group_col` identifies the group/breed/population used to calculate allele frequencies and group-level relationships.
 
 ```r
-GWAS.res <- baGWAS(
+baGWAS.Res <- baGWAS(
   strategy = "freqGWAS",
   organism = "dog",
   pheno = pheno,
   covariate = covariate,
   trait = "weight",
-  geno = "/data/sheep/genotypes",
+  geno = "/data/geno",
   group_col = "FID"
 )
 ```
@@ -155,7 +155,7 @@ genotypes.fam
 Example:
 
 ```r
-geno = "/home/user/data/sheep/genotypes"
+geno = "/home/user/data/geno"
 ```
 
 A path ending in `.bed`, `.bim`, or `.fam` is normalized to the dataset prefix.
@@ -167,22 +167,26 @@ A path ending in `.bed`, `.bim`, or `.fam` is normalized to the dataset prefix.
 ```text
 FID   IID   Sex   Breed   <Trait>
 ```
+FID — group/family identifier assigned to each breed. Individuals belonging to the same breed must have the same FID.
+IID — individual identifier.
+Sex — sex of the individual.
+Breed — breed or population name.
+<Trait> — phenotype trait to be analyzed. The trait column must be numeric.
 
-The trait column must be numeric.
+group_col — specifies the column used to define the breed/group structure. By default, group_col = "FID".
 
 Example:
 
 ```r
 pheno <- data.frame(
-  FID = c("1", "2", "3"),
+  FID = c("1", "1", "2"),
   IID = c("1", "2", "3"),
   Sex = c(1, 2, 1),
-  Breed = c("Breed_A", "Breed_B", "Breed_C"),
+  Breed = c("Breed_A", "Breed_A", "Breed_B"),
   weight = c(42.1, 45.7, 47.3)
 )
 ```
 
-For `freqGWAS`, `pheno` must additionally contain the grouping column specified by `group_col`.
 
 ### Covariates
 
@@ -194,6 +198,12 @@ For `freqGWAS`, numeric covariates are aggregated at the group level before ente
 
 ```text
 FID   IID   Sex   Breed   <Covariate>
+
+FID — group/family identifier assigned to each breed. Individuals belonging to the same breed must have the same FID.
+IID — individual identifier.
+Sex — sex of the individual.
+Breed — breed or population name.
+<Covariate> — numeric covariate variable included as a fixed effect in the GWAS model. Multiple covariates can be provided as additional columns.
 ```
 
 ## Supported organisms

@@ -62,14 +62,12 @@ BiocManager::install("ggmanh", ask = FALSE, update = FALSE)
 
 ### Install baGWAS from GitHub
 
-Replace `YOUR_GITHUB_USERNAME` with the account that hosts this repository:
-
 ```r
 if (!requireNamespace("remotes", quietly = TRUE)) {
   install.packages("remotes")
 }
 
-remotes::install_github("YOUR_GITHUB_USERNAME/baGWAS")
+remotes::install_github("https://github.com/MohammadFallahiii/baGWAS/baGWAS")
 ```
 
 The package can also be installed from a local source checkout:
@@ -116,7 +114,7 @@ library(baGWAS)
 
 GWAS.res <- baGWAS(
   strategy = "genoGWAS",
-  organism = "sheep",
+  organism = "dog",
   pheno = pheno,
   covariate = covariate,
   trait = "weight",
@@ -131,7 +129,7 @@ For `freqGWAS`, `group_col` identifies the group/breed/population used to calcul
 ```r
 GWAS.res <- baGWAS(
   strategy = "freqGWAS",
-  organism = "sheep",
+  organism = "dog",
   pheno = pheno,
   covariate = covariate,
   trait = "weight",
@@ -167,7 +165,7 @@ A path ending in `.bed`, `.bim`, or `.fam` is normalized to the dataset prefix.
 `pheno` must be a data frame containing:
 
 ```text
-FID   IID   <trait>
+FID   IID   Sex   Breed   <Trait>
 ```
 
 The trait column must be numeric.
@@ -178,6 +176,8 @@ Example:
 pheno <- data.frame(
   FID = c("1", "2", "3"),
   IID = c("1", "2", "3"),
+  Sex = c(1, 2, 1),
+  Breed = c("Breed_A", "Breed_B", "Breed_C"),
   weight = c(42.1, 45.7, 47.3)
 )
 ```
@@ -189,6 +189,12 @@ For `freqGWAS`, `pheno` must additionally contain the grouping column specified 
 For `genoGWAS`, numeric covariates are aligned to the PLINK `.fam` individual order by `FID` and `IID`. Missing numeric covariates are median-imputed and zero-variance covariates are removed.
 
 For `freqGWAS`, numeric covariates are aggregated at the group level before entering the fixed-effect design matrix.
+
+`Covariates` must be a data frame containing:
+
+```text
+FID   IID   Sex   Breed   <Covariate>
+```
 
 ## Supported organisms
 
